@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>個人動態首頁</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .dynamic-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .content-container {
+            z-index: 10;
+            position: relative;
+            max-width: 800px;
+            width: 90%;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .link-card {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .link-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border-color: #58a6ff;
+        }
+
+        .social-link {
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+
+        .social-link:hover {
+            transform: scale(1.1);
+            color: #58a6ff;
+        }
+
+        .linktree-card {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .linktree-button {
+            background-color: #21262d;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            color: #c9d1d9;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .linktree-button:hover {
+            background-color: #2f343a;
+            border-color: #58a6ff;
+        }
+    </style>
+</head>
+<body class="bg-[#0d1117] text-[#c9d1d9] font-sans">
+
+    <!-- 動態背景 Canvas -->
+    <canvas id="dynamicCanvas" class="dynamic-background"></canvas>
+
+    <!-- 主要內容區塊 -->
+    <div class="content-container">
+        <!-- 頂部區塊 -->
+        <div class="mb-8">
+            <h1 class="text-4xl sm:text-5xl font-bold mb-2 text-white">XX</h1>
+            <p class="text-lg sm:text-xl text-[#8b949e]">自動化技術與量化交易</p>
+        </div>
+
+        <!-- 社交媒體連結 -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+            <!-- GitHub 連結 -->
+            <a href="https://github.com/your-github" target="_blank" class="link-card flex items-center justify-center space-x-2 social-link">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.6.111.82-.25.82-.557 0-.276-.01-1.009-.015-1.983-3.337.724-4.042-1.61-4.042-1.61-.542-1.372-1.328-1.745-1.328-1.745-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.809 1.305 3.492.997.108-.775.421-1.305.766-1.605-2.665-.3-5.466-1.33-5.466-5.931 0-1.311.465-2.381 1.236-3.221-.124-.3-2.13-10.154.498-10.297 0 0 1.006-.322 3.301 1.233.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.296-1.555 3.297-1.233 3.297-1.233.204 1.543-.099 2.059-.498 3.222.771.84 1.235 1.911 1.235 3.221 0 4.61-2.805 5.626-5.474 5.922.423.36.811 1.053.811 2.124 0 1.531-.015 2.766-.015 3.141 0 .307.219.67.822.556 4.767-1.589 8.203-6.086 8.203-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                <span class="font-semibold">GitHub</span>
+            </a>
+            <!-- Email 連結 -->
+            <a href="mailto:your-email@example.com" class="link-card flex items-center justify-center space-x-2 social-link">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 12.713l-11.275-8.527c-.394-.486-.531-1.059-.413-1.611.118-.553.479-1.018.995-1.296l10.693-5.918c.288-.16.634-.16.922 0l10.693 5.918c.516.278.877.743.995 1.296.118.552-.02 1.125-.413 1.611l-11.275 8.527z"/>
+                    <path d="M12 12.713l-11.275-8.527c-.394-.486-.531-1.059-.413-1.611.118-.553.479-1.018.995-1.296l10.693-5.918c.288-.16.634-.16.922 0l10.693 5.918c.516.278.877.743.995 1.296.118.552-.02 1.125-.413 1.611l-11.275 8.527z"/>
+                    <path d="M12 12.713l-11.275-8.527c-.394-.486-.531-1.059-.413-1.611.118-.553.479-1.018.995-1.296l10.693-5.918c.288-.16.634-.16.922 0l10.693 5.918c.516.278.877.743.995 1.296.118.552-.02 1.125-.413 1.611l-11.275 8.527z"/>
+                    <path d="M22 6.556l-10 7.5-10-7.5v-2.056l10 7.5 10-7.5z"/>
+                </svg>
+                <span class="font-semibold">Email</span>
+            </a>
+            <!-- LinkedIn 連結 -->
+            <a href="https://linkedin.com/in/your-linkedin" target="_blank" class="link-card flex items-center justify-center space-x-2 social-link">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.766s.784-1.766 1.75-1.766 1.75.79 1.75 1.766-.783 1.766-1.75 1.766zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                </svg>
+                <span class="font-semibold">LinkedIn</span>
+            </a>
+        </div>
+
+        <!-- IG 連結區塊 (Linktree 風格) -->
+        <div class="linktree-card">
+            <h2 class="text-xl font-bold text-white mb-2">我的 Instagram 連結</h2>
+            <p class="text-[#8b949e]">追蹤我在 IG 上的最新動態！</p>
+            <a href="https://instagram.com/your-ig" target="_blank" class="linktree-button text-center">我的 IG 主頁</a>
+            <a href="https://instagram.com/your-other-link1" target="_blank" class="linktree-button text-center">專案分享</a>
+            <a href="https://instagram.com/your-other-link2" target="_blank" class="linktree-button text-center">每日交易心得</a>
+        </div>
+
+    </div>
+
+    <!-- JavaScript 處理動態背景 -->
+    <script>
+        window.onload = function() {
+            const canvas = document.getElementById('dynamicCanvas');
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            let particles = [];
+            const numParticles = 100;
+            const particleSize = 1;
+            const maxDistance = 150;
+
+            function resizeCanvas() {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            }
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.vx = (Math.random() - 0.5) * 1.5;
+                    this.vy = (Math.random() - 0.5) * 1.5;
+                    this.color = '#58a6ff';
+                }
+
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+
+                    if (this.x < 0 || this.x > width) this.vx *= -1;
+                    if (this.y < 0 || this.y > height) this.vy *= -1;
+                }
+
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, particleSize, 0, Math.PI * 2);
+                    ctx.fillStyle = this.color;
+                    ctx.fill();
+                }
+            }
+
+            function init() {
+                resizeCanvas();
+                for (let i = 0; i < numParticles; i++) {
+                    particles.push(new Particle());
+                }
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, width, height);
+
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
+
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+
+                        if (distance < maxDistance) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = `rgba(88, 166, 255, ${1 - distance / maxDistance})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(draw);
+            }
+
+            window.addEventListener('resize', resizeCanvas);
+            init();
+            draw();
+        };
+    </script>
+
+</body>
+</html>
